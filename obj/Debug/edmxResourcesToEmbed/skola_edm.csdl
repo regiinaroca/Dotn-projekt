@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="razrediModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="raz_odjel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="odjel" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="nastavnik" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ucenik" Relationship="Self.fk_raz" FromRole="raz_odjel" ToRole="ucenik" />
+  </EntityType>
+  <EntityType Name="ucenik">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prezime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="oib" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="raz_id" Type="Int32" />
+    <NavigationProperty Name="raz_odjel" Relationship="Self.fk_raz" FromRole="ucenik" ToRole="raz_odjel" />
+  </EntityType>
+  <Association Name="fk_raz">
+    <End Role="raz_odjel" Type="Self.raz_odjel" Multiplicity="0..1" />
+    <End Role="ucenik" Type="Self.ucenik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="raz_odjel">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ucenik">
+        <PropertyRef Name="raz_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="razrediEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="raz_odjel" EntityType="Self.raz_odjel" />
+    <EntitySet Name="ucenik" EntityType="Self.ucenik" />
+    <AssociationSet Name="fk_raz" Association="Self.fk_raz">
+      <End Role="raz_odjel" EntitySet="raz_odjel" />
+      <End Role="ucenik" EntitySet="ucenik" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

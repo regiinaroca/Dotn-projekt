@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="razrediModelStoreContainer" CdmEntityContainer="razrediEntities">
+    <EntitySetMapping Name="raz_odjel">
+      <EntityTypeMapping TypeName="razrediModel.raz_odjel">
+        <MappingFragment StoreEntitySet="raz_odjel">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="odjel" ColumnName="odjel" />
+          <ScalarProperty Name="nastavnik" ColumnName="nastavnik" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ucenik">
+      <EntityTypeMapping TypeName="razrediModel.ucenik">
+        <MappingFragment StoreEntitySet="ucenik">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ime" ColumnName="ime" />
+          <ScalarProperty Name="prezime" ColumnName="prezime" />
+          <ScalarProperty Name="oib" ColumnName="oib" />
+          <ScalarProperty Name="raz_id" ColumnName="raz_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

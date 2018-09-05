@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="razrediModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="raz_odjel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="odjel" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="nastavnik" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="ucenik">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ime" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="prezime" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="oib" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="raz_id" Type="int" />
+  </EntityType>
+  <Association Name="fk_raz">
+    <End Role="raz_odjel" Type="Self.raz_odjel" Multiplicity="0..1" />
+    <End Role="ucenik" Type="Self.ucenik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="raz_odjel">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ucenik">
+        <PropertyRef Name="raz_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="razrediModelStoreContainer">
+    <EntitySet Name="raz_odjel" EntityType="Self.raz_odjel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ucenik" EntityType="Self.ucenik" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_raz" Association="Self.fk_raz">
+      <End Role="raz_odjel" EntitySet="raz_odjel" />
+      <End Role="ucenik" EntitySet="ucenik" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
